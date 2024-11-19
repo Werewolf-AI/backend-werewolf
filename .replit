@@ -1,0 +1,34 @@
+run = "sh run.sh"
+modules = ["bash", "nodejs-20", "python-3.11"]
+hidden = [".config", "package-lock.json"]
+entrypoint = "index.html"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+deploymentTarget = "static"
+build = ["npm", "run", "build"]
+publicDir = "dist"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 3001
+externalPort = 80
+
+[[ports]]
+localPort = 9000
+externalPort = 9000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 9001
+externalPort = 3001
+
+[env]
+PORT = "3000"
+FLASK_ENV = "development"
+FLASK_APP = "app.py"
